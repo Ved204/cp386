@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char * argv[]){
+int main(FILE *file){
 
     FILE *fp;
     FILE *input;
@@ -13,12 +13,13 @@ int main(int argc, char * argv[]){
     size_t len = 0;
     ssize_t read;
 
-    if ((input = fopen(argv[1], "r")) == NULL) {
-        printf("Error: (fopen) - Error opening input file.\n");
-        return 1;
+    if (file == NULL) {
+        printf("Error: file pointer is null.");
+        return -1;
     }
 
     while ((read = getline(&line, &len, fp)) != -1) {
+        printf("Retrieved line of length %zu:\n", read);
         printf("%s", line);
     }
 
