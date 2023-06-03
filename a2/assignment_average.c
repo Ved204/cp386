@@ -6,13 +6,13 @@ int main(FILE *file){
 
     FILE *fp;
     char * line = NULL;
-    fp = fopen(file, "r");
+    fp = fopen("sample_in_grades.txt", "r");
     int lines = 0;
     int matrix[] = {};
     size_t len = 0;
     ssize_t read;
 
-    if (fp == NULL) {
+    if (file == NULL) {
         printf("Error: file pointer is null.");
         return -1;
     }
