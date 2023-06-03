@@ -17,9 +17,18 @@ int main(){
         return -1;
     }
 
+    int i = 0;
     while (fscanf(fp, "%d", &number) != EOF) {
         // Process the number here (e.g., print it)
         printf("%d\n", number);
+        matrix[i] = number;
+        i++;
+    }
+
+    int size = sizeof(matrix)/sizeof(int);
+
+    for (int j = 0; j < size; j++) {
+        printf("%d ", matrix[j]);
     }
 
     fclose(fp);
