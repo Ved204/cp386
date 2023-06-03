@@ -1,6 +1,7 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_SIZE 100
 
 int main(){
 
@@ -9,7 +10,7 @@ int main(){
     char * line = NULL;
     int number;
     int lines = 0;
-    int matrix[] = {};
+    int matrix[MAX_SIZE] = {};
     fp = fopen("sample_in_grades.txt", "r");
 
     if (fp == NULL) {
@@ -20,17 +21,16 @@ int main(){
     int i = 0;
     while (fscanf(fp, "%d", &number) != EOF) {
         // Process the number here (e.g., print it)
-        printf("%d\n", number);
+        // printf("%d\n", number);
         matrix[i] = number;
         i++;
     }
 
-    int size = sizeof(matrix)/sizeof(int);
-
-    for (int j = 0; j < size; j++) {
+    for (int j = 0; j < i; j++) {
         printf("%d ", matrix[j]);
     }
 
     fclose(fp);
 
+    return  0;
 }
