@@ -2,25 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(FILE *file){
+int main(){
 
     FILE *fp;
     FILE *input;
     char * line = NULL;
-    fp = fopen("sample_in_grades.txt", "r");
+    int number;
     int lines = 0;
     int matrix[] = {};
-    size_t len = 0;
-    ssize_t read;
+    fp = fopen("sample_in_grades.txt", "r");
 
-    if (file == NULL) {
+    if (fp == NULL) {
         printf("Error: file pointer is null.");
         return -1;
     }
 
-    while ((read = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu:\n", read);
-        printf("%s", line);
+    while (fscanf(fp, "%d", &number) != EOF) {
+        // Process the number here (e.g., print it)
+        printf("%d\n", number);
     }
 
     fclose(fp);
