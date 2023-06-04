@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #define MAX_SIZE 100
 
+void calculate_average(int matrix[], int i, int j, int lines, int n);
+
 int main(){
     size_t len = 0;
     ssize_t read;
@@ -22,7 +24,6 @@ int main(){
 
     int i = 0;
     while (fscanf(fp, "%d", &number) != EOF) {
-        // Process the number here (e.g., print it)
         matrix[i] = number;
         i++;
     }
@@ -31,13 +32,26 @@ int main(){
         lines++;
     }
 
-    printf("%d\n", lines);
+    int n = i / lines;
 
-    for (int j = 0; j < i; j++) {
-        printf("%d ", matrix[j]);
+    for (int j = 0; j < n; j++) {
+        calculate_average(matrix, i, j, lines, n);
     }
 
     fclose(fp);
 
     return 0;
+}
+
+void calculate_average(int matrix[], int i, int j, int lines, int n){
+
+    float total = 0;
+
+    for (int k = j; k < i; k += n){
+        total += matrix[k];
+    }
+
+    total /= lines;
+
+    printf("Assignment %d - Average = %f\n", j+1, total);
 }
