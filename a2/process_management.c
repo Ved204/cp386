@@ -22,3 +22,12 @@ int main(int argc, char* argv[]){
 
     return 0;
 }
+
+void writeOutput(char* command, char* output){
+    FILE* fp;
+    fp = open("output.txt", "a");
+    fprintf(fp, "The Output of: %s : is\n", command);
+    fprintf(fp, ">>>>>>>>>>>>>>>\n%s<<<<<<<<<<<<<<<\n", output);
+    fclose(fp);
+    return;
+}
