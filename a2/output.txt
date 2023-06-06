@@ -1,0 +1,24 @@
+The Output of: uname -a
+free -m
+ls -l -a -F
+whoami
+pwd : is
+>>>>>>>>>>>>>>>
+Linux 8aaaf5e10363 5.15.49-linuxkit #1 SMP PREEMPT Tue Sep 13 07:51:32 UTC 2022 aarch64 aarch64 aarch64 GNU/Linux
+               total        used        free      shared  buff/cache   available
+Mem:            3932         942         408         291        2581        2519
+Swap:           1023          56         967
+total 64
+drwxr-xr-x 10 vscode vscode   320 Jun  6 21:43 ./
+drwxr-xr-x  8 vscode vscode   256 Jun  3 20:55 ../
+-rwxr-xr-x  1 vscode vscode 16784 Jun  6 20:16 assignment_average*
+-rw-r--r--  1 vscode vscode  1385 Jun  6 21:42 assignment_average.c
+-rw-r--r--  1 vscode vscode   715 Jun  3 20:38 Makefile
+-rw-r--r--  1 vscode vscode     0 Jun  6 21:42 output.txt
+-rwxr-xr-x  1 vscode vscode 22072 Jun  6 21:43 process_management*
+-rw-r--r--  1 vscode vscode  3608 Jun  6 21:42 process_management.c
+-rw-r--r--  1 vscode vscode   184 Jun  3 20:33 sample_in_grades.txt
+-rw-r--r--  1 vscode vscode    39 Jun  6 20:10 sample_in_process.txt
+vscode
+/workspaces/cp386/a2
+ÿÿ<<<<<<<<<<<<<<<
