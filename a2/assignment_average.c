@@ -1,3 +1,14 @@
+/*
+ -------------------------------
+ Assignment 2
+ File: assignment_average.c
+ -------------------------------
+ Author:  Mann Patel / Ved Patel
+ ID:      210852760 / 210304140
+ Email:   pate5276@mylaurier.ca / pate4140@mylaurier.ca
+ Version: 2023-06-06
+ -------------------------------
+*/
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>

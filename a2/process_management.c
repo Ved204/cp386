@@ -1,7 +1,26 @@
+/*
+ -------------------------------
+ Assignment 2
+ File: process_management.c
+ -------------------------------
+ Author:  Mann Patel / Ved Patel
+ ID:      210852760 / 210304140
+ Email:   pate5276@mylaurier.ca / pate4140@mylaurier.ca
+ Version: 2023-06-06
+ -------------------------------
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/mman.h>
+#include <sys/wait.h>
+#include <sys/shm.h>
+#include <fcntl.h>
+
+void writeOutput(char*, char*);
+
 
 int main(int argc, char* argv[]){
     // fork() function splits the process into a main process and child process 
@@ -18,14 +37,100 @@ int main(int argc, char* argv[]){
     // the function is very helpful when you try to print parts of things from one process and part of things from another process
     // in an ordered manner 
 
+    int mem;
+    char* str;
+    pid_t parent_id;
+    pid_t parent_id2;
 
+    if (argc != 2){
+        printf("Error, no file provided\n");
+        return -1;
+    }
+
+    mem = shm_open("/shared_memory", O_CREAT | O_RDWR, 0666);
+    str = mmap(NULL, 2056, PROT_WRITE | PROT_READ, MAP_SHARED, mem, 0);
+
+    if (mem == -1){
+        perror("shm_open");
+        exit(1);
+    }
+
+    if (str == MAP_FAILED){
+        perror("mmap");
+        exit(1);
+    }
+
+    if (ftruncate(mem, 2056) == -1){
+        perror("ftruncate");
+        exit(1);
+    }
+
+    int pip[2];
+
+    if (pipe(pip) == -1){
+        perror("pipe");
+        exit(1);
+    }
+
+    parent_id = fork();
+
+    if (parent_id == 0){
+        char buffer[2056];
+        int length = 0;
+        int file_directory = open("sample_in_process.txt", O_RDONLY);
+
+        if (file_directory == -1){
+            perror("open");
+            exit(1);
+        }
+
+        while ((length = read(file_directory, buffer, 2056)) > 0){
+            strncpy(str, buffer, length);
+            str[length] = '\0';
+        }
+
+        close(file_directory);
+        exit(0);
+    }
+    else if (parent_id > 0){
+        wait(NULL);
+        
+        parent_id2 = fork();
+        if (parent_id2 == 0){
+            int file_directory = open("sample_in_process.txt", O_RDONLY);
+
+            if (file_directory == -1){
+                perror("open");
+                exit(1);
+            }
+
+            dup2(pip[1], STDOUT_FILENO);
+            close(pip[0]);
+            close(pip[1]);
+
+            char* args[] = {"sh", "-c", str, NULL};
+            execvp(args[0], args);
+            exit(0);
+        }
+        else if (parent_id2 > 0){
+            wait(NULL);
+
+            close(pip[1]);
+            char buffer[2056];
+            int length = 0;
+
+            while ((length = read(pip[0], buffer, 2056)) > 0){
+                writeOutput(str, buffer);
+            }
+        }
+    }
 
     return 0;
 }
 
 void writeOutput(char* command, char* output){
     FILE* fp;
-    fp = open("output.txt", "a");
+    fp = fopen("output.txt", "a");
     fprintf(fp, "The Output of: %s : is\n", command);
     fprintf(fp, ">>>>>>>>>>>>>>>\n%s<<<<<<<<<<<<<<<\n", output);
     fclose(fp);
