@@ -48,19 +48,17 @@ int main(int argc, char* argv[]){
     }
 
     mem = shm_open("/shared_memory", O_CREAT | O_RDWR, 0666);
-    str = mmap(NULL, 2056, PROT_WRITE | PROT_READ, MAP_SHARED, mem, 0);
+    str = mmap(NULL, 4096, PROT_WRITE | PROT_READ, MAP_SHARED, mem, 0);
 
     if (mem == -1){
-        perror("shm_open");
+        perror("shared_memory_open");
         exit(1);
     }
-
     if (str == MAP_FAILED){
-        perror("mmap");
+        perror("map");
         exit(1);
     }
-
-    if (ftruncate(mem, 2056) == -1){
+    if (ftruncate(mem, 4096) == -1){
         perror("ftruncate");
         exit(1);
     }
@@ -75,16 +73,15 @@ int main(int argc, char* argv[]){
     parent_id = fork();
 
     if (parent_id == 0){
-        char buffer[2056];
+        char buffer[4096];
         int length = 0;
         int file_directory = open("sample_in_process.txt", O_RDONLY);
 
         if (file_directory == -1){
-            perror("open");
+            perror("open_error");
             exit(1);
         }
-
-        while ((length = read(file_directory, buffer, 2056)) > 0){
+        while ((length = read(file_directory, buffer, 4096)) > 0){
             strncpy(str, buffer, length);
             str[length] = '\0';
         }
@@ -100,7 +97,7 @@ int main(int argc, char* argv[]){
             int file_directory = open("sample_in_process.txt", O_RDONLY);
 
             if (file_directory == -1){
-                perror("open");
+                perror("open_error");
                 exit(1);
             }
 
@@ -116,10 +113,10 @@ int main(int argc, char* argv[]){
             wait(NULL);
 
             close(pip[1]);
-            char buffer[2056];
+            char buffer[4096];
             int length = 0;
 
-            while ((length = read(pip[0], buffer, 2056)) > 0){
+            while ((length = read(pip[0], buffer, 4096)) > 0){
                 writeOutput(str, buffer);
             }
         }
