@@ -74,7 +74,7 @@ int main(int argc, char* argv[]){
 
     if (parent_id == 0){
         char buffer[4096];
-        int length = 0;
+        int length;
         int file_directory = open("sample_in_process.txt", O_RDONLY);
 
         if (file_directory == -1){
@@ -91,8 +91,8 @@ int main(int argc, char* argv[]){
     }
     else if (parent_id > 0){
         wait(NULL);
-        
         parent_id2 = fork();
+
         if (parent_id2 == 0){
             int file_directory = open("sample_in_process.txt", O_RDONLY);
 
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]){
 
             close(pip[1]);
             char buffer[4096];
-            int length = 0;
+            int length;
 
             while ((length = read(pip[0], buffer, 4096)) > 0){
                 writeOutput(str, buffer);
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]){
 void writeOutput(char* command, char* output){
     FILE* fp;
     fp = fopen("output.txt", "a");
-    fprintf(fp, "The Output of: %s : is\n", command);
+    fprintf(fp, "The output of: %s : is\n", command);
     fprintf(fp, ">>>>>>>>>>>>>>>\n%s<<<<<<<<<<<<<<<\n", output);
     fclose(fp);
     return;
