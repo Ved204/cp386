@@ -1,2 +1,2 @@
-# cp386
+# CP386
 Assignments for CP386 
