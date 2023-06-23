@@ -62,7 +62,7 @@ int main(){
         total_wait_time += wait_time;
         total_turn_around_time += turn_around_time;
         
-        printf("%d \t %d \t %d \t %d \t %d \t %d\n", thread_array[i].thread_id, thread_array[i].arrival_time, thread_array[i].burst_time, completion_time, turn_around_time, wait_time);
+        printf("%d \t\t %d \t\t %d \t\t %d \t\t\t %d \t\t\t %d\n", thread_array[i].thread_id, thread_array[i].arrival_time, thread_array[i].burst_time, completion_time, turn_around_time, wait_time);
     }
 
     average_wait_time = (double) total_wait_time/num;
