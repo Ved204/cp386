@@ -14,7 +14,7 @@
 
 typedef struct {
     int thread_id;
-    int arrival_time;
+    int arr_time;
     int burst_time;
 } thread;
 
@@ -41,7 +41,7 @@ int main(){
     int num = 0;
     thread thread_array[100];
 
-    while(fscanf(fp, "%d,%d,%d", &thread_array[num].thread_id, &thread_array[num].arrival_time, &thread_array[num].burst_time) == 3){
+    while(fscanf(fp, "%d,%d,%d", &thread_array[num].thread_id, &thread_array[num].arr_time, &thread_array[num].burst_time) == 3){
         num++;
     }
 
@@ -59,12 +59,12 @@ int main(){
 
     for (int i = 0; i < num; i++){
         completion_time += thread_array[i].burst_time;
-        turn_around_time = completion_time - thread_array[i].arrival_time;
+        turn_around_time = completion_time - thread_array[i].arr_time;
         wait_time = turn_around_time - thread_array[i].burst_time;
         total_wait_time += wait_time;
         total_turn_around_time += turn_around_time;
         
-        printf("%d \t\t %d \t\t %d \t\t %d \t\t\t %d \t\t\t %d\n", thread_array[i].thread_id, thread_array[i].arrival_time, thread_array[i].burst_time, completion_time, turn_around_time, wait_time);
+        printf("%d \t\t %d \t\t %d \t\t %d \t\t\t %d \t\t\t %d\n", thread_array[i].thread_id, thread_array[i].arr_time, thread_array[i].burst_time, completion_time, turn_around_time, wait_time);
     }
 
     average_wait_time = (double) total_wait_time/num;
