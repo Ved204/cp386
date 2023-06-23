@@ -47,9 +47,11 @@ int main(){
 
     fclose(fp);
 
+    int completion_time = 0;
+    int turn_around_time;
+    int wait_time;
     int total_turn_around_time = 0;
     int total_wait_time = 0;
-    int completion_time = 0;
     double average_wait_time;
     double average_turn_around_time;
 
@@ -57,8 +59,8 @@ int main(){
 
     for (int i = 0; i < num; i++){
         completion_time += thread_array[i].burst_time;
-        int turn_around_time = completion_time - thread_array[i].arrival_time;
-        int wait_time = turn_around_time - thread_array[i].burst_time;
+        turn_around_time = completion_time - thread_array[i].arrival_time;
+        wait_time = turn_around_time - thread_array[i].burst_time;
         total_wait_time += wait_time;
         total_turn_around_time += turn_around_time;
         
