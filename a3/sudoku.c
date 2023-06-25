@@ -1,3 +1,14 @@
+/*
+ -------------------------------
+ Assignment 3
+ File: sudoku.c
+ -------------------------------
+ Author:  Mann Patel / Ved Patel
+ ID:      210852760 / 210304140
+ Email:   pate5276@mylaurier.ca / pate4140@mylaurier.ca
+ Version: 2023-06-23
+ -------------------------------
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
