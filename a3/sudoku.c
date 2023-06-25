@@ -72,7 +72,7 @@ int main() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (fscanf(f, "%d", &sudoku[i][j]) != 1) {
-                fprintf("Failed to read Sudoku puzzle from file.\n");
+                printf("Failed to read Sudoku puzzle from file.\n");
                 fclose(f);
                 return 1;
             }
